@@ -1,0 +1,63 @@
+% ---------------------------------------------------------------
+% preamble/theorems.tex - theorem-like environments in coloured boxes
+% Same names as usual: \begin{definition}[title] \label{def:x} ... \end{definition}
+% All numbered ones share one counter per section: Theorem 1.1, Definition 1.2, ...
+% Starred forms (theorem*, ...) are unnumbered.
+% ---------------------------------------------------------------
+
+\numberwithin{equation}{section}
+
+% No extra space inside the boxes; the boxes set the spacing
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\bfseries\sffamily,
+  bodyfont=\itshape, headpunct={}, postheadspace=0.6em,
+]{boxplain}
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\bfseries\sffamily,
+  bodyfont=\normalfont, headpunct={}, postheadspace=0.6em,
+]{boxdef}
+
+\declaretheorem[style=boxplain, name=\txttheorem, numberwithin=section]{theorem}
+\declaretheorem[style=boxplain, name=\txtlemma,       sibling=theorem]{lemma}
+\declaretheorem[style=boxplain, name=\txtproposition, sibling=theorem]{proposition}
+\declaretheorem[style=boxplain, name=\txtcorollary,   sibling=theorem]{corollary}
+\declaretheorem[style=boxplain, name=\txtconjecture,  sibling=theorem]{conjecture}
+\declaretheorem[style=boxplain, name=\txttheorem, numbered=no]{theorem*}
+\declaretheorem[style=boxplain, name=\txtlemma,   numbered=no]{lemma*}
+
+\declaretheorem[style=boxdef, name=\txtdefinition, sibling=theorem]{definition}
+\declaretheorem[style=boxdef, name=\txtexample,    sibling=theorem]{example}
+\declaretheorem[style=boxdef, name=\txtexercise,   sibling=theorem]{exercise}
+\declaretheorem[style=boxdef, name=\txtdefinition, numbered=no]{definition*}
+\declaretheorem[style=boxdef, name=\txtexample,    numbered=no]{example*}
+
+\declaretheorem[style=boxdef, name=\txtremark, sibling=theorem]{remark}
+\declaretheorem[style=boxdef, name=\txtremark, numbered=no]{remark*}
+
+% \begin{solution} ... \end{solution}  proof layout with "Solution" title
+\newenvironment{solution}
+  {\begin{proof}[\txtsolution]}
+  {\end{proof}}
+
+% --- Box colours: blue definitions, red theorems, green examples, grey remarks ---
+\tcbset{
+  thmbox/.style={
+    enhanced, breakable, sharp corners, frame hidden,
+    left=7pt, right=7pt, top=5pt, bottom=5pt,
+    before skip=0.9em, after skip=0.9em,
+  },
+}
+\tcolorboxenvironment{definition}{thmbox, colback=blue!4, borderline west={3pt}{0pt}{blue!60!black}}
+\tcolorboxenvironment{definition*}{thmbox, colback=blue!4, borderline west={3pt}{0pt}{blue!60!black}}
+\tcolorboxenvironment{theorem}{thmbox, colback=red!4, borderline west={3pt}{0pt}{red!60!black}}
+\tcolorboxenvironment{theorem*}{thmbox, colback=red!4, borderline west={3pt}{0pt}{red!60!black}}
+\tcolorboxenvironment{lemma}{thmbox, colback=red!3, borderline west={3pt}{0pt}{red!45!black}}
+\tcolorboxenvironment{lemma*}{thmbox, colback=red!3, borderline west={3pt}{0pt}{red!45!black}}
+\tcolorboxenvironment{proposition}{thmbox, colback=red!3, borderline west={3pt}{0pt}{red!45!black}}
+\tcolorboxenvironment{corollary}{thmbox, colback=red!3, borderline west={3pt}{0pt}{red!45!black}}
+\tcolorboxenvironment{conjecture}{thmbox, colback=orange!5, borderline west={3pt}{0pt}{orange!70!black}}
+\tcolorboxenvironment{example}{thmbox, colback=green!4, borderline west={3pt}{0pt}{green!45!black}}
+\tcolorboxenvironment{example*}{thmbox, colback=green!4, borderline west={3pt}{0pt}{green!45!black}}
+\tcolorboxenvironment{exercise}{thmbox, colback=black!3, borderline west={3pt}{0pt}{black!50}}
+\tcolorboxenvironment{remark}{thmbox, colback=black!3, borderline west={3pt}{0pt}{black!35}}
+\tcolorboxenvironment{remark*}{thmbox, colback=black!3, borderline west={3pt}{0pt}{black!35}}

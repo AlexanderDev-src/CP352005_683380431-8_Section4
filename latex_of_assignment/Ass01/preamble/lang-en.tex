@@ -1,0 +1,79 @@
+% ---------------------------------------------------------------
+% preamble/lang-en.tex - English fonts and document wording
+% Switch to Thai: change \input{preamble/lang-en} in main.tex to lang-th
+% ---------------------------------------------------------------
+\newif\iflangth
+\langthfalse
+
+% \newtxt{\txtfoo}{ไทย}{English}: layout wording, picked by this file
+\newcommand{\newtxt}[3]{\newcommand{#1}{#3}}
+
+% Latin Modern text + math (fontspec default); Sarabun for the odd Thai word: \thai{...}
+\setmathfont{latinmodern-math.otf}
+\IfFontExistsTF{JetBrains Mono}{\setmonofont{JetBrains Mono}[Scale=MatchLowercase, Contextuals=NoAlternate]}{}   % no <= ligatures in code
+\newfontfamily\thaifont{Sarabun}[Scale=MatchLowercase]
+\newcommand{\thai}[1]{{\thaifont\XeTeXlinebreaklocale "th"#1}}
+\newfontfamily\thaifallbackfont{Sarabun}[Scale=MatchLowercase]   % Thai inside code (see macros.tex)
+
+\setstretch{1.15}
+
+% --- Document wording ---
+\newcommand{\txttheorem}{Theorem}
+\newcommand{\txtlemma}{Lemma}
+\newcommand{\txtproposition}{Proposition}
+\newcommand{\txtcorollary}{Corollary}
+\newcommand{\txtconjecture}{Conjecture}
+\newcommand{\txtdefinition}{Definition}
+\newcommand{\txtexample}{Example}
+\newcommand{\txtexercise}{Exercise}
+\newcommand{\txtremark}{Remark}
+\newcommand{\txtnote}{Note}
+\newcommand{\txtproof}{Proof}
+\newcommand{\txtsolution}{Solution}
+\newcommand{\txtanswer}{Answer}
+\newcommand{\txtwork}{Show your work}
+\newcommand{\txtpoints}{pts}
+\newcommand{\txtkeypoints}{Key points}
+\newcommand{\txtrefs}{References}
+\newcommand{\txtbib}{Bibliography}
+\newcommand{\txtdraft}{Draft}
+\newcommand{\txtst}{\text{ such that }}
+\newcommand{\txtreview}{Review}
+\newcommand{\txtgoals}{After this review you should be able to}
+\newcommand{\txtsummary}{Summary}
+\newcommand{\txtworked}{Worked examples}
+\newcommand{\txtpartmc}{Part 1: Multiple choice}
+\newcommand{\txtpartwritten}{Part 2: Written answers}
+\newcommand{\txtmistakes}{Common mistakes}
+\newcommand{\txtselfcheck}{Self-check}
+\newcommand{\txtname}{Name}
+\newcommand{\txtnumber}{No.}
+\newcommand{\txtstudentid}{Student ID}
+\newcommand{\txtdate}{Date}
+\newcommand{\txtscore}{Score}
+\newcommand{\txtpage}{Page}
+\newcommand{\txtof}{of}
+\newcommand{\txtanswerkey}{Answer key}
+
+\def\bibname{Bibliography}
+
+% --- Names used by \cref ---
+\crefname{equation}{}{}
+\creflabelformat{equation}{#2(#1)#3}
+\crefname{chapter}{Chapter}{Chapters}
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{section}{Section}{Sections}
+\crefname{subsection}{Section}{Sections}
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{Proposition}{Propositions}
+\crefname{corollary}{Corollary}{Corollaries}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{definition}{Definition}{Definitions}
+\crefname{example}{Example}{Examples}
+\crefname{exercise}{Exercise}{Exercises}
+\crefname{remark}{Remark}{Remarks}
+\crefname{enumi}{question}{questions}
+\crefname{exercisesi}{question}{questions}

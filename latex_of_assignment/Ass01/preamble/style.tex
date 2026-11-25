@@ -1,0 +1,56 @@
+% ---------------------------------------------------------------
+% preamble/style.tex - lecture-notes summary layout
+%   title block, table of contents, coloured section numbers,
+%   theorem-like environments in coloured boxes (see theorems.tex)
+% ---------------------------------------------------------------
+\usepackage{titlesec}
+
+\geometry{
+  a4paper,
+  top = 2.2cm, bottom = 2.2cm, left = 2.2cm, right = 2.2cm,
+  headheight = 20pt, headsep = 0.7cm, footskip = 1.0cm,
+}
+
+\colorlet{notecolor}{blue!55!black}
+
+% --- Headings: sans, coloured number ---
+\titleformat{\section}
+  {\sffamily\Large\bfseries}
+  {\color{notecolor}\thesection}{0.6em}{}
+  [{\color{notecolor!40}\titlerule[0.8pt]}]
+\titleformat{\subsection}
+  {\sffamily\large\bfseries}
+  {\color{notecolor}\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+  {\sffamily\normalsize\bfseries}
+  {\color{notecolor}\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.5em}
+
+% --- Header and footer ---
+\newcommand{\headright}{%
+  \ifdraftmode{\color{red!70!black}\txtdraft\ --- \today}\else\nouppercase{\leftmark}\fi}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{black!60}\doctitle}
+\rhead{\small\color{black!60}\headright\ifshowanswers\ \answerkeytag\fi}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\cfoot{\small\thepage}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em plus 0.1em}
+\raggedbottom
+
+% --- \makenotetitle: title, author, date and a coloured rule ---
+\newcommand{\makenotetitle}{%
+  \thispagestyle{plain}%
+  {\sffamily\small\color{notecolor}\docsubject}\par\vspace{0.3em}
+  {\sffamily\huge\bfseries\doctitle}\par\vspace{0.6em}
+  {\docauthor\hfill\today}\par\vspace{0.3em}
+  {\color{notecolor}\rule{\linewidth}{1.2pt}}\par\vspace{1em}}
+
+% --- \begin{keypoints} ... \end{keypoints}: "Key points" box at the end of a topic ---
+\newenvironment{keypoints}
+  {\begin{formulabox}{\txtkeypoints}}
+  {\end{formulabox}}
