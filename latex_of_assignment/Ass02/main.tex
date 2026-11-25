@@ -1,0 +1,43 @@
+% ===============================================================
+% Ass01  (เขียนสรุป › สรุปบทเรียน)
+% คอมไพล์ด้วย XeLaTeX เท่านั้น  คำสั่งทั้งหมดอยู่ใน macro.md
+%   make                         build/main.pdf
+%   make teacher                 build/main-teacher.pdf  (เห็นเฉลยแบบฝึก)
+%   make draft                   build/main-draft.pdf    (เห็น \todo)
+%   make chapter name=limits     เพิ่มบทใหม่ content/NN_limits/
+%   make review name=stats       เพิ่มชีททบทวน content/NN_stats/
+% ===============================================================
+\documentclass[11pt,a4paper]{extarticle}
+
+% --- ข้อมูลเอกสาร: แก้ตรงนี้ ---
+\newcommand{\doctitle}{สำรวจ Network Topology ด้วย Cisco Packet Tracer}
+\newcommand{\docsubject}{CP352005 | ASS02 Network Topology}
+\newcommand{\docauthor}{พัชรพล พันทวี (รหัสนักศึกษา: 683380431-8)}
+
+\input{preamble/packages}
+\input{preamble/lang-th}
+\input{preamble/macros}
+\input{preamble/theorems}
+\input{preamble/exercises}
+\input{preamble/biblio}
+\input{preamble/style}
+
+% --- สวิตช์: Makefile ตั้งให้ หรือเอา % ออกเพื่อบังคับ ---
+%\showanswerstrue
+%\draftmodetrue
+\ifdefined\ANSWERS\showanswerstrue\fi
+\ifdefined\DRAFT\draftmodetrue\fi
+
+\title{\doctitle}
+\author{\docauthor}
+
+\begin{document}
+
+\singlespacing
+\makenotetitle
+
+% @chapters-begin  (make chapter / make review เพิ่มบรรทัดใหม่เหนือ @chapters-end)
+\input{content/01_topology/main}
+% @chapters-end
+
+\end{document}

@@ -1,0 +1,176 @@
+% ---------------------------------------------------------------
+% preamble/macros.tex - math shortcuts, highlights and notes (every layout)
+% ---------------------------------------------------------------
+
+% ===== Number sets =====
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\K}{\mathbb{K}}
+
+% ===== Calligraphic letters: \cA ... \cZ =====
+\makeatletter
+\@for\@tmpl:=A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z\do{%
+  \expandafter\xdef\csname c\@tmpl\endcsname{\noexpand\mathcal{\@tmpl}}}
+\makeatother
+
+% ===== Delimiters that size themselves =====
+% \abs{x}   fixed size      \abs*{x}   auto \left \right     \abs[\big]{x}   manual
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\paren}{(}{)}
+\DeclarePairedDelimiter{\brac}{[}{]}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1,\,#2}
+% \setof{x \in \R}{x > 0}  ->  { x in R | x > 0 }
+\DeclarePairedDelimiterX{\setof}[2]{\{}{\}}{#1 \;\delimsize\vert\; #2}
+
+% ===== Operators =====
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% ===== Probability and statistics =====
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Prob}{\mathbb{P}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\iid}{\overset{\text{iid}}{\sim}}
+
+% ===== Calculus =====
+% \dd x              upright d with correct spacing: \int f(x) \dd x
+% \dv{f}{x}          df/dx         \dv[2]{f}{x}    d^2f/dx^2
+% \pdv{f}{x}         partial       \pdv[2]{f}{x}
+% \eval{F(x)}{a}{b}  F(x) |_a^b
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\dv}[3][]{\frac{\dd^{#1} #2}{\dd #3^{#1}}}
+\newcommand{\pdv}[3][]{\frac{\partial^{#1} #2}{\partial #3^{#1}}}
+\newcommand{\eval}[3]{\left. #1 \right\rvert_{#2}^{#3}}
+\newcommand{\limn}{\lim_{n \to \infty}}
+\newcommand{\limx}[1]{\lim_{x \to #1}}
+\newcommand{\sumn}[1][1]{\sum_{n=#1}^{\infty}}
+
+% ===== Linear algebra =====
+% \vb{v} bold vector   \mat{1 & 2 \\ 3 & 4}   \dmat{...} determinant
+% \cvec{1 \\ 2 \\ 3} column vector            \vect{a}{b} 2D column vector
+\newcommand{\vb}[1]{\symbf{#1}}
+\newcommand{\mat}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newcommand{\dmat}[1]{\begin{vmatrix} #1 \end{vmatrix}}
+\newcommand{\cvec}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newcommand{\vect}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
+\newcommand{\T}{^{\mathsf{T}}}
+\newcommand{\inv}{^{-1}}
+
+% ===== Logic, definitions, misc =====
+\newcommand{\defeq}{\coloneqq}          % x := y
+\newcommand{\eqdef}{\eqqcolon}          % y =: x
+\newcommand{\st}{\txtst}                % "such that" / "โดยที่"
+\newcommand{\eps}{\varepsilon}
+\newcommand{\vphi}{\varphi}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\degree}{^{\circ}}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+% ===== Research notes: visible only in  make draft =====
+% \todo{check the constant}   \idea{try induction}   \changed{new text}
+\newif\ifdraftmode
+\draftmodefalse
+\newcommand{\todo}[1]{\ifdraftmode{\color{red!70!black}\textbf{[TODO:} #1\textbf{]}}\fi}
+\newcommand{\idea}[1]{\ifdraftmode{\color{blue!70!black}\textbf{[IDEA:} #1\textbf{]}}\fi}
+\newcommand{\changed}[1]{\ifdraftmode{\color{green!45!black}#1}\else#1\fi}
+
+% ===== Highlights for summaries =====
+% \hl{short phrase}        yellow background, one line only (no wrap)
+% \key{important words}    bold red text, wraps normally
+% \begin{important} ... \end{important}   whole sentence/paragraph, yellow box
+% soul's \hl is not used: it breaks Thai text under XeLaTeX.
+\colorlet{hlcolor}{yellow!45}
+\colorlet{keycolor}{red!65!black}
+\newcommand{\hl}[1]{{\setlength{\fboxsep}{1pt}\colorbox{hlcolor}{\strut #1}}}
+\newcommand{\key}[1]{{\bfseries\color{keycolor}#1}}
+\newtcolorbox{important}{
+  breakable, enhanced, frame hidden, sharp corners,
+  colback = hlcolor,
+  borderline west = {2pt}{0pt}{orange!80!black},
+  left=6pt, right=6pt, top=3pt, bottom=3pt,
+  before skip=0.6em, after skip=0.6em,
+}
+
+% ===== Formula / key-point box =====
+% \begin{formulabox}{Title} ... \end{formulabox}
+\newtcolorbox{formulabox}[1]{
+  breakable, enhanced,
+  colback = blue!3,
+  colframe= blue!40!black,
+  boxrule = 0.6pt,
+  title   = \bfseries #1,
+  fonttitle = \normalsize,
+}
+
+% ===== Eye-catching note =====
+% \note{Do not forget to check the assumptions}
+% Orange box with a warning sign, titled "Note" / "หมายเหตุ"
+\newcommand{\warnsign}{%
+  \tikz[baseline=-0.6ex]{%
+    \fill[orange!90!black, rounded corners=0.6pt]
+      (0,0.75em) -- (0.48em,-0.1em) -- (-0.48em,-0.1em) -- cycle;
+    \node[white, font=\bfseries\footnotesize, inner sep=0pt] at (0,0.24em) {!};}}
+\newcommand{\note}[1]{%
+  \begin{tcolorbox}[
+    breakable, enhanced, frame hidden, sharp corners,
+    colback = orange!8,
+    borderline west = {2.5pt}{0pt}{orange!90!black},
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    before skip=0.6em, after skip=0.6em,
+  ]
+    {\large\warnsign}\ {\bfseries\color{orange!60!black}\txtnote}\quad #1
+  \end{tcolorbox}}
+
+% ===== Page x of y =====
+% \pageofpages  ->  "หน้า 2/5"
+\newcommand{\pageofpages}{\txtpage~\thepage/\pageref*{LastPage}}
+
+% ===== Thai inside \texttt and code =====
+% The mono font has no Thai glyphs, so each run of Thai characters in the
+% tt family switches to \thaifallbackfont and back. Other text is untouched.
+\makeatletter
+\newXeTeXintercharclass\thai@class
+\@tempcnta="0E01
+\loop\ifnum\@tempcnta<"0E5C
+  \XeTeXcharclass\@tempcnta=\thai@class
+  \advance\@tempcnta by 1
+\repeat
+\newif\ifthai@inmono
+\newcommand{\thai@enter}{%
+  \edef\thai@cur{\f@family}\edef\thai@tt{\ttdefault}%
+  \ifx\thai@cur\thai@tt\thai@inmonotrue\thaifallbackfont\fi}
+\newcommand{\thai@leave}{\ifthai@inmono\thai@inmonofalse\ttfamily\fi}
+\XeTeXinterchartoks 0 \thai@class = {\thai@enter}
+\XeTeXinterchartoks 4095 \thai@class = {\thai@enter}
+\XeTeXinterchartoks \thai@class 0 = {\thai@leave}
+\XeTeXinterchartoks \thai@class 4095 = {\thai@leave}
+\XeTeXinterchartokenstate=1
+\makeatother

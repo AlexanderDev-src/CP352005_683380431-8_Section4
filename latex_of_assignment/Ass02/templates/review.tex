@@ -1,0 +1,114 @@
+% ---------------------------------------------------------------
+% __DIR__/main.tex - __TITLE__ (review sheet)
+% Replace the sample content; keep the structure.
+%   make          student copy (answers hidden)
+%   make teacher  answer key (answers + correct choices shown)
+% ---------------------------------------------------------------
+\section{\txtreview: __TITLE__}
+\label{sec:__SLUG__}
+\newpointgroup[__TITLE__]   % \scoreline below counts only this sheet
+
+\studentline
+\scoreline
+
+% ===== 1. Goals =====
+\topichead{\txtgoals}
+\begin{checklist}
+  \item หาค่าเฉลี่ยเลขคณิตของข้อมูลได้
+  \item หาความแปรปรวนและส่วนเบี่ยงเบนมาตรฐานได้
+  \item แปลความหมายของค่าสถิติที่คำนวณได้
+\end{checklist}
+
+% ===== 2. Summary of key ideas =====
+\topichead{\txtsummary}
+
+\begin{definition}[ค่าเฉลี่ยเลขคณิต]
+  \label{def:__SLUG__-mean}
+  สำหรับข้อมูล $x_1, \dots, x_n$ นิยาม $\bar{x} \defeq \dfrac{1}{n}\sum_{i=1}^{n} x_i$
+\end{definition}
+
+\begin{formulabox}{\txtkeypoints}
+  \begin{multicols}{2}
+    \setlength{\parskip}{0.8em}
+    $s^2 = \dfrac{1}{n-1}\sum\limits_{i=1}^{n} (x_i - \bar{x})^2$
+
+    $s = \sqrt{s^2}$
+
+    $\E[aX + b] = a\E[X] + b$
+
+    $\Var(aX + b) = a^2 \Var(X)$
+  \end{multicols}
+\end{formulabox}
+
+% ===== 3. Worked examples =====
+\topichead{\txtworked}
+
+\begin{example}
+  \label{ex:__SLUG__-1}
+  จงหาค่าเฉลี่ยของข้อมูล $2, 4, 6, 8$
+\end{example}
+\begin{solution}
+  $\bar{x} = \dfrac{2 + 4 + 6 + 8}{4} = \dfrac{20}{4} = 5$
+\end{solution}
+
+\begin{formulabox}{\txtmistakes}
+  \begin{itemize}[leftmargin=1.2em, itemsep=0.1em, topsep=0pt]
+    \item ความแปรปรวนของตัวอย่างหารด้วย $n-1$ ไม่ใช่ $n$
+    \item $\Var(X + Y) = \Var(X) + \Var(Y)$ ใช้ได้เมื่อ $X, Y$ เป็นอิสระกันเท่านั้น
+  \end{itemize}
+\end{formulabox}
+
+% ===== 4. Practice: multiple choice =====
+\topichead{\txtpartmc}
+
+\begin{exercises}
+  \item ข้อมูล $1, 3, 5$ มีค่าเฉลี่ยเท่าใด \points{1}
+  \begin{choices}[4]
+    \item $2$
+    \item \correct $3$
+    \item $4$
+    \item $5$
+  \end{choices}
+
+  \item ถ้า $\Var(X) = 4$ แล้ว $\Var(3X + 1)$ เท่ากับเท่าใด \points{1}
+  \begin{choices}[4]
+    \item $12$
+    \item $13$
+    \item \correct $36$
+    \item $37$
+  \end{choices}
+  \begin{answer}
+    $\Var(3X + 1) = 3^2 \Var(X) = 9 \cdot 4 = 36$
+  \end{answer}
+\end{exercises}
+
+% ===== 5. Practice: written answers =====
+\topichead{\txtpartwritten}
+
+% [resume] keeps numbering going from Part 1
+\begin{exercises}[resume]
+  \item จงหาความแปรปรวนของตัวอย่าง $2, 4, 6, 8$ \points{4}
+  \workbox[4cm]
+  \begin{answer}
+    จาก \cref{ex:__SLUG__-1} ได้ $\bar{x} = 5$ \\
+    $s^2 = \dfrac{(-3)^2 + (-1)^2 + 1^2 + 3^2}{4 - 1} = \dfrac{20}{3}$
+  \end{answer}
+
+  \item ให้ $X$ มี $\E[X] = 10$ และ $\Var(X) = 9$ \points{4}
+  \begin{subq}
+    \item จงหา $\E[2X - 5]$
+    \item จงหาส่วนเบี่ยงเบนมาตรฐานของ $2X - 5$
+  \end{subq}
+  \workbox[4cm]
+  \begin{answer}
+    ก) $2(10) - 5 = 15$ \qquad ข) $\sqrt{2^2 \cdot 9} = 6$
+  \end{answer}
+\end{exercises}
+
+% ===== 6. Self-check =====
+\topichead{\txtselfcheck}
+\begin{checklist}
+  \item ทำตอนที่ 1 ถูกทุกข้อโดยไม่ดูสรุป
+  \item อธิบายได้ว่าทำไมความแปรปรวนของตัวอย่างหารด้วย $n-1$
+  \item ข้อที่ยังทำไม่ได้: \rule{0.5\linewidth}{0.4pt}
+\end{checklist}

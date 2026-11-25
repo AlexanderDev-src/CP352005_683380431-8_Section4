@@ -1,0 +1,49 @@
+% ---------------------------------------------------------------
+% preamble/packages.tex - packages every layout loads
+% Packages only one layout needs are loaded in preamble/style.tex.
+% ---------------------------------------------------------------
+
+% --- Math (mathtools loads amsmath; unicode-math comes after them) ---
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{siunitx}
+
+% --- Page layout ---
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{lastpage}
+
+% --- Lists and boxes ---
+\usepackage{enumitem}
+\usepackage{tasks}        % row-by-row lists (multiple-choice options)
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% --- Figures and plots ---
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc,patterns,angles,quotes,positioning,decorations.pathreplacing}
+\graphicspath{{./figures/}}
+
+% --- Tables ---
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% --- Misc ---
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\usepackage{csquotes}
+
+% --- hyperref near the end, cleveref after it ---
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink]{cleveref}
+\usepackage{thmtools}   % after cleveref, so \cref knows each theorem type

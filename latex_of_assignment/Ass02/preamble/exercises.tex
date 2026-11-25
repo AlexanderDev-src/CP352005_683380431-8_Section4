@@ -1,0 +1,215 @@
+% ---------------------------------------------------------------
+% preamble/exercises.tex - questions, points and a hidden answer key
+%   make          student copy (answers hidden)
+%   make teacher  answer key  (answers, correct choices, "Answer key" tag)
+% ---------------------------------------------------------------
+
+% --- Answer switch: make teacher turns it on ---
+\newif\ifshowanswers
+\showanswersfalse
+
+% Red "Answer key" tag for headers; empty in the student copy
+\newcommand{\answerkeytag}{%
+  \ifshowanswers{\color{red!70!black}\bfseries\txtanswerkey}\fi}
+
+% --- Big heading for a worksheet page ---
+% \chapterhead{Title}
+\newcommand{\chapterhead}[1]{%
+  \begin{center}
+    {\Large\bfseries #1}
+  \end{center}
+  \vspace{0.5em}
+}
+
+% --- Small unnumbered heading ---
+% \topichead{Part 1}
+\newcommand{\topichead}[1]{%
+  \vspace{0.8em}
+  {\large\bfseries #1}\par
+  \vspace{0.3em}
+}
+
+% --- Numbered questions ---
+% \begin{exercises} \item ... \end{exercises}     continue numbering: [resume]
+\newlist{exercises}{enumerate}{1}
+\setlist[exercises]{
+  label     = \bfseries\arabic*.,
+  leftmargin= 1.6em,
+  itemsep   = 0.9em,
+  parsep    = 0.3em,
+  topsep    = 0.6em,
+}
+
+% --- Sub-questions: ก) ข) ค) in Thai, a) b) c) in English ---
+\newlist{subq}{enumerate}{1}
+\setlist[subq]{
+  leftmargin= 1.8em,
+  itemsep   = 0.5em,
+  topsep    = 0.4em,
+}
+\iflangth
+  \setlist*[subq]{label=\thaialph*)}
+\else
+  \setlist*[subq]{label=\alph*)}
+\fi
+
+% --- Blank space / ruled lines for answers ---
+% \answerspace[3cm]     \answerlines{4}
+\newcommand{\answerspace}[1][3cm]{\vspace{#1}}
+\newcommand{\answerlines}[1]{%
+  \par\vspace{0.4em}
+  \foreach \i in {1,...,#1}{\noindent\rule{\linewidth}{0.4pt}\par\vspace{0.9em}}%
+}
+
+% --- Work area without a frame ---
+% \workbox   or   \workbox[6cm]
+\newcommand{\workbox}[1][4cm]{%
+  \par\vspace{0.2em}%
+  {\small\color{black!55} \txtwork}\par
+  \vspace{#1}}
+
+% --- Answer box, printed only in the answer key ---
+% \begin{answer} ... \end{answer}
+\newenvironment{answer}
+  {\ifshowanswers
+     \begin{tcolorbox}[
+       breakable, enhanced,
+       colback = black!3,
+       colframe= black!45,
+       boxrule = 0.4pt,
+       left=6pt, right=6pt, top=4pt, bottom=4pt,
+       title   = \bfseries\txtanswer,
+       fonttitle = \normalsize,
+     ]
+   \else
+     \setbox0\vbox\bgroup
+   \fi}
+  {\ifshowanswers
+     \end{tcolorbox}
+   \else
+     \egroup
+   \fi}
+
+% --- Keep one question on one page (student copy only) ---
+% \item \begin{keeptogether} ... \end{keeptogether}
+\newenvironment{keeptogether}
+  {\ifshowanswers\else
+     \begin{minipage}[t]{\linewidth}\setlength{\parskip}{0.5em plus 0.1em}%
+   \fi}
+  {\ifshowanswers\else\end{minipage}\fi}
+
+% --- Square grid -n..n with axes for plotting ---
+% \coordgrid{}               empty -6..6
+% \coordgrid[8]{\draw ...;}  -8..8 with a drawing on top
+\newcommand{\coordgrid}[2][6]{%
+  \begin{center}
+  \begin{tikzpicture}[scale=0.48, every node/.style={font=\scriptsize}]
+    \draw[black!18, thin] (-#1,-#1) grid (#1,#1);
+    \draw[-{Stealth}, semithick] (-#1-0.4,0) -- (#1+0.7,0) node[right]{$X$};
+    \draw[-{Stealth}, semithick] (0,-#1-0.4) -- (0,#1+0.7) node[above]{$Y$};
+    \foreach \k in {-#1,...,-1,1,2,...,#1}{
+      \node[below, black!60] at (\k,0) {$\k$};
+      \node[left,  black!60] at (0,\k) {$\k$};
+    }
+    #2
+  \end{tikzpicture}
+  \end{center}}
+
+% ===============================================================
+% Points
+%   \points{2}        prints "(2 คะแนน)" at the right edge and counts it
+%   \totalpoints      sum of every \points in the document
+%   \newpointgroup[title]  starts a new group (a sheet, an exam part)
+%   \grouppoints      sum of the current group
+% Totals come from the .aux file, so they show ?? until the second run;
+% latexmk does that run by itself. Half points work: \points{1.5}
+% ===============================================================
+\makeatletter
+\def\ex@total{0}
+\def\ex@group{0}
+\def\ex@grouptitle{}
+\def\ex@ngroups{0}
+\newcounter{ptgroup}
+
+\newcommand{\points}[1]{%
+  \xdef\ex@total{\fpeval{\ex@total+(#1)}}%
+  \xdef\ex@group{\fpeval{\ex@group+(#1)}}%
+  \unskip\nobreak\hfil\penalty50\hskip1em\hbox{}\nobreak\hfill
+  \mbox{\small(#1 \txtpoints)}}
+
+\newcommand{\ex@closegroup}{%
+  \ifnum\value{ptgroup}>0
+    \immediate\write\@auxout{\string\ex@savegroup{\the\value{ptgroup}}{\ex@group}%
+      {\unexpanded\expandafter{\ex@grouptitle}}}%
+  \fi}
+\newcommand{\newpointgroup}[1][]{%
+  \ex@closegroup
+  \stepcounter{ptgroup}%
+  \gdef\ex@group{0}%
+  \gdef\ex@grouptitle{#1}}
+% Called from the .aux file: \ex@savegroup{number}{points}{title}
+\newcommand{\ex@savegroup}[3]{%
+  \global\@namedef{ex@gpts@#1}{#2}%
+  \global\@namedef{ex@gtitle@#1}{#3}%
+  \ifnum#1>\ex@ngroups\relax\xdef\ex@ngroups{#1}\fi}
+\AtEndDocument{%
+  \ex@closegroup
+  \immediate\write\@auxout{\gdef\string\ex@savedtotal{\ex@total}}}
+
+\newcommand{\totalpoints}{\ifdefined\ex@savedtotal\ex@savedtotal\else??\fi}
+\newcommand{\grouppoints}{%
+  \@ifundefined{ex@gpts@\the\value{ptgroup}}{??}{\@nameuse{ex@gpts@\the\value{ptgroup}}}}
+\makeatother
+
+% ===============================================================
+% Review / sheet helpers
+% ===============================================================
+
+% --- Name / number / date line at the top of a sheet ---
+% \studentline
+\newcommand{\studentline}{%
+  \par\noindent
+  \txtname\ \rule{0.38\linewidth}{0.4pt}\hfill
+  \txtnumber\ \rule{0.08\linewidth}{0.4pt}\hfill
+  \txtdate\ \rule{0.18\linewidth}{0.4pt}\par
+  \vspace{0.4em}}
+
+% --- Score line: "Score ____ / 20" ---
+% \scoreline         full marks = points of the current group (or the whole document)
+% \scoreline[20]     full marks written by hand
+\makeatletter
+\newcommand{\scoreline}[1][\ifnum\value{ptgroup}>0 \grouppoints\else\totalpoints\fi]{%
+  \par\noindent\hfill
+  \txtscore\ \rule{0.08\linewidth}{0.4pt}\ / #1\par}
+\makeatother
+
+% --- Tick-box list for goals and self-checks ---
+% \begin{checklist} \item ... \end{checklist}
+\newlist{checklist}{itemize}{1}
+\setlist[checklist]{
+  label     = $\square$,
+  leftmargin= 1.6em,
+  itemsep   = 0.2em,
+  topsep    = 0.3em,
+}
+
+% --- Multiple-choice options, row by row: ก. ข. on one line, ค. ง. on the next ---
+% \begin{choices} \item ... \item \correct ... \end{choices}
+% \begin{choices}[4]  four columns (short options)   default 2
+% \correct marks the right option; the mark shows only in the answer key.
+\NewTasksEnvironment[
+  label = \iflangth\thaialph*.\else(\alph*)\fi,
+  label-width = 1.5em, item-indent = 1.9em, after-item-skip = 0.2em,
+  before-skip = 0.1em, after-skip = 0.3em,
+]{choices@tasks}[\item](2)
+\NewDocumentEnvironment{choices}{ O{2} +b }
+  {\begin{choices@tasks}(#1)#2\end{choices@tasks}}{}
+% \correct also records "question n -> choice k" in the .aux file for \answergrid.
+\makeatletter
+\newcommand{\correct}{%
+  \ifnum\value{exercisesi}>0
+    \immediate\write\@auxout{\string\ex@savecorrect{\the\value{exercisesi}}{\the\value{task}}}%
+  \fi
+  \ifshowanswers\makebox[0pt][r]{\color{green!45!black}$\checkmark$\hspace{2.7em}}\fi}
+\newcommand{\ex@savecorrect}[2]{\global\@namedef{ex@correct@#1}{#2}}
+\makeatother

@@ -8,6 +8,8 @@
 |---|---|
 | `ASSIGNMENTS/ASS01/` | งานที่ส่ง (ไฟล์ PDF และโจทย์ของ Assignment 01) |
 | `latex_of_assignment/Ass01/` | ซอร์ส LaTeX ของ Assignment 01 (คอมไพล์เป็น PDF) |
+| `ASSIGNMENTS/ASS02/` | งานที่ส่งและโจทย์ของ Assignment 02 |
+| `latex_of_assignment/Ass02/` | ซอร์ส LaTeX ของ Assignment 02 (โครงเดียวกับ Ass01) |
 
 ### `latex_of_assignment/Ass01/`
 
